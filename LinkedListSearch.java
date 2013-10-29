@@ -1,0 +1,63 @@
+package Assignment4;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+public class LinkedListSearch extends Reader{
+	
+	private ArrayList<Integer> inputList;
+	
+	public LinkedListSearch(File inputFile)
+	{
+		inputList = new ArrayList<Integer>();
+		inputList = ReadInputs(inputFile);
+	}
+	
+	public int GetInputListSize()
+	{
+		return(inputList.size());
+	}
+	
+	public void SearchForElements(LinkedList<Integer> randomList)
+	{
+		for(int i = 0; i < inputList.size(); i += 1)
+		{
+			int temp = randomList.indexOf(inputList.get(i));
+			if(temp < 0){System.out.println("Integer not in Array");}
+			else{System.out.println("Index: " + i);}
+		}
+	}
+	
+	public void InterpolationSearch(LinkedList<Integer> randomList)
+	{
+		for(int i = 0; i < inputList.size(); i += 1)
+		{	  
+			// Returns index of toFind in sortedArray, or -1 if not found
+			  int low = 0;
+			  int high = randomList.size() - 1;
+			  int mid;
+			 
+			  while (randomList.get(low) <= inputList.get(i) && randomList.get(high) >= inputList.get(i)) 
+			  {
+			   mid = low +
+			         ((inputList.get(i) - randomList.get(low)) * (high - low)) /
+			         (randomList.get(high) - randomList.get(low));  //out of range is possible  here
+			 
+			   if (randomList.get(mid) < inputList.get(i))
+			    low = mid + 1;
+			   else if (randomList.get(mid) > inputList.get(i))
+			    
+			    high = mid - 1;
+			   else
+			    System.out.println("Index: " + mid);
+			  }
+			 
+			  if (randomList.get(low) == inputList.get(i))
+				  System.out.println("Index: " + low);
+			  else
+				  System.out.println("Integer not in Array"); // Not found
+		}
+	}
+
+}
